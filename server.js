@@ -36,6 +36,8 @@ app.post('/create', async (req, res) => {
     if (exists) {
       res.redirect('/exists');
     } else {
+      // 이전에는 파일을 이동시킬 수 있었지만, 볼륨이 추가된 이후에는 파일을 "이동" 시키는 것은 불가능.
+      // await fs.rename(tempFilePath, finalFilePath);
       await fs.copyFile(tempFilePath, finalFilePath);
       await fs.unlink(tempFilePath);
       res.redirect('/');
